@@ -1,0 +1,35 @@
+package me.nspain.cubtracking.badgework
+
+import de.codecentric.hikaku.Hikaku
+import de.codecentric.hikaku.HikakuConfig
+import de.codecentric.hikaku.converters.openapi.OpenApiConverter
+import de.codecentric.hikaku.converters.spring.SpringConverter
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.ApplicationContext
+import java.nio.file.Paths
+
+
+@SpringBootTest
+class SpecificationMatchesImplementationTest {
+
+    @Autowired
+    lateinit var springContext: ApplicationContext
+
+    @Test
+    fun `specification matches implementation`() {
+        val res = this::class.java.classLoader.getResource("openapi.yml")
+        val uri = res.toURI()
+        val path = Paths.get(uri)
+        Hikaku(
+                specification = OpenApiConverter(path),
+                implementation = SpringConverter(springContext),
+                config = HikakuConfig(
+                        ignorePaths = setOf(SpringConverter.IGNORE_ERROR_ENDPOINT),
+                        ignoreHttpMethodOptions = true,
+                        ignoreHttpMethodHead = true
+                )
+        ).match()
+    }
+}
