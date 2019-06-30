@@ -37,24 +37,6 @@ data class User(
 )
 
 /**
- * A leader who can approve badgework.
- *
- * This class represents a leader. They are a user who can approve badgework.
- *
- * @param [id] Unique ID to reference the leader by.
- * @param [user] User account linked to the leader.
- */
-@Entity
-data class Leader(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
-        @OneToOne
-        @JoinColumn(name = "id")
-        val user: User
-)
-
-/**
  * An entity that links a Cub and achievements.
  *
  * This class represents the link between a Cub and their achievements. It contains the metadata around when it was
@@ -64,7 +46,7 @@ data class Leader(
  * @param [cub] [Cub] being mapped to an [Achievement].
  * @param [achievement] [Achievement] being mapped to a [Cub].
  * @param [completionDate] Date the achievement was completed on.
- * @param [approvedBy] [Leader] approving the completion of an [Achievement].
+ * @param [approvedBy] [User] approving the completion of an [Achievement].
  */
 @Entity
 data class Completion(
@@ -80,7 +62,7 @@ data class Completion(
         val completionDate: Date,
         @ManyToOne
         @JoinColumn(name = "id")
-        val approvedBy: Leader
+        val approvedBy: User
 )
 
 /**
