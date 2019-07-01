@@ -16,7 +16,7 @@ import javax.persistence.*
 data class Cub(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+        val cubId: Long,
         val name: String
 )
 
@@ -32,7 +32,7 @@ data class Cub(
 data class User(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+        val userId: Long,
         val name: String
 )
 
@@ -52,16 +52,16 @@ data class User(
 data class Completion(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+        val completionId: Long,
         @OneToOne
-        @JoinColumn(name = "id")
+        @JoinColumn(name = "cubId")
         val cub: Cub,
         @OneToOne
-        @JoinColumn(name = "id")
+        @JoinColumn(name = "achievementId")
         val achievement: Achievement,
         val completionDate: Date,
         @ManyToOne
-        @JoinColumn(name = "id")
+        @JoinColumn(name = "userId")
         val approvedBy: User
 )
 
@@ -85,19 +85,19 @@ data class Completion(
 data class Achievement (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+        val achievementId: Long,
         @Column(unique = true)
         val name: String,
         val description: String,
         @ManyToOne
-        @JoinColumn(name = "id")
+        @JoinColumn(name = "achievementTypeId")
         val type: AchievementType,
         val numRequiredSubachievements: Long?,
         @OneToMany
-        @JoinColumn(name = "id")
+        @JoinColumn(name = "achievementId")
         val subachievements: List<Achievement>?,
         @OneToMany
-        @JoinColumn(name = "id")
+        @JoinColumn(name = "achievementId")
         val requiredSubachievements: List<Achievement>?
 )
 
@@ -117,7 +117,7 @@ data class Achievement (
 data class AchievementType(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+        val achievementTypeId: Long,
         @Column(unique = true)
         val name: String,
         val description: String
