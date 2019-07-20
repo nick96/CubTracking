@@ -25,7 +25,6 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web:$springbootVer")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springbootVer")
-    implementation("org.springframework.boot:spring-boot-starter-security:$springbootVer")
 
     runtime("com.h2database:h2:$h2Ver")
 
