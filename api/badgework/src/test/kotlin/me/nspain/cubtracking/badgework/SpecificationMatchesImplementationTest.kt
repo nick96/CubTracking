@@ -4,13 +4,14 @@ import de.codecentric.hikaku.Hikaku
 import de.codecentric.hikaku.HikakuConfig
 import de.codecentric.hikaku.converters.openapi.OpenApiConverter
 import de.codecentric.hikaku.converters.spring.SpringConverter
+import me.nspain.cubtracking.badgework.BadgeworkApplication
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
 import java.nio.file.Paths
 
-@SpringBootTest
+@SpringBootTest(classes = [BadgeworkApplication::class])
 class SpecificationMatchesImplementationTest {
 
     @Autowired
