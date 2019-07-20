@@ -16,25 +16,7 @@ servers:
   - url: http://localhost:8081/badgework/v1
     description: Local server
 
-# By default endpoints are secured by the authz_id security scheme
-security:
-  - authz_id: []
-
 paths:
-  /:
-    get:
-      operationId: apiDocs
-      description: Return the API documentation as defined here.
-      responses:
-        '200':
-          description: API documentation
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-
   /cubs:
     get:
       operationId: getCubs
@@ -198,14 +180,6 @@ components:
               type: integer
               format: int64
               readOnly: true
-    AuthenticationResponse:
-      required:
-        - apiToken
-      properties:
-        apiToken:
-          description: API token for accessing `authz_id` secured endpoints
-          type: string
-          readOnly: true
     Error:
       required:
         - message
@@ -310,9 +284,3 @@ components:
             name:
               description: Name of the event attended
               type: string
-
-  securitySchemes:
-    authz_id:
-      type: apiKey
-      name: Authorization
-      in: header
