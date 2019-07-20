@@ -9,7 +9,7 @@ import javax.persistence.*
  * This class represents a Cub who's badgework we are tracking. It is linked to the [Completion] table which contains
  * the data about what achievements the cub has completed.
  *
- * @param [id] Unique ID to reference the cub by.
+ * @param [cubId] Unique ID to reference the cub by.
  * @param [name] Name of the cub.
  */
 @Entity
@@ -25,7 +25,7 @@ data class Cub(
  *
  * This class represents a user who utilise the API.
  *
- * @param [id] Unique ID to reference the user by.
+ * @param [userId] Unique ID to reference the user by.
  * @param [name] Name of the user.
  */
 @Entity
@@ -42,7 +42,7 @@ data class User(
  * This class represents the link between a Cub and their achievements. It contains the metadata around when it was
  * completed and who approved the completion.
  *
- * @param [id] Unique ID to represent the completion data.
+ * @param [completionId] Unique ID to represent the completion data.
  * @param [cub] [Cub] being mapped to an [Achievement].
  * @param [achievement] [Achievement] being mapped to a [Cub].
  * @param [completionDate] Date the achievement was completed on.
@@ -73,7 +73,7 @@ data class Completion(
  * [requiredSubachievements] is a subset of [subachievements] that are required to complete the achievement. The
  * rest of elements of [subachievements] are there to be completed to fill the [numRequiredSubachievements] quota.
  *
- * @param [id] Unique ID for referencing an achievement item.
+ * @param [achievementId] Unique ID for referencing an achievement item.
  * @param [name] Name of the achievement item.
  * @param [description] Description of the achievement item.
  * @param [type] Achievement type.
@@ -109,7 +109,7 @@ data class Achievement (
  * type of achievements. It also allows us to extend the available achievement types, hopefully without having
  * to change the code.
  *
- * @param [id] Unique ID used to reference an achievement type.
+ * @param [achievementTypeIdz] Unique ID used to reference an achievement type.
  * @param [name] Name of the achievement type.
  * @param [description] Description of the achievement type.
  */
