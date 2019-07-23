@@ -1,0 +1,14 @@
+# Default pipeline from cli
+steps:
+- label: ":pipeline:"
+  command: buildkite-agent pipeline upload
+
+- wait
+
+- label: ":hammer: Test badgework API"
+  command: cd api/badgework && ./gradlew test
+
+- wait
+
+- label: ":whale: Build and archive image"
+  command: cd api/badgework && ./gradlew jib --image="quay.io/nick96/badgework-api:$(git rev-parse HEAD)
