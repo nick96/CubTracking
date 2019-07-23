@@ -12,29 +12,16 @@ import javax.persistence.*
  * @param [cubId] Unique ID to reference the cub by.
  * @param [name] Name of the cub.
  */
+@Table(name = "Cub")
 @Entity
 data class Cub(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val cubId: Long,
         val name: String
-)
-
-/**
- * A user who can utilise the API.
- *
- * This class represents a user who utilise the API.
- *
- * @param [userId] Unique ID to reference the user by.
- * @param [name] Name of the user.
- */
-@Entity
-data class User(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val userId: Long,
-        val name: String
-)
+){
+        constructor(): this(0, "")
+}
 
 /**
  * An entity that links a Cub and achievements.
@@ -46,23 +33,24 @@ data class User(
  * @param [cub] [Cub] being mapped to an [Achievement].
  * @param [achievement] [Achievement] being mapped to a [Cub].
  * @param [completionDate] Date the achievement was completed on.
- * @param [approvedBy] [User] approving the completion of an [Achievement].
+ * @param [approvedBy] Person approving the completion of an [Achievement].
  */
+@Table(name = "Completion")
 @Entity
 data class Completion(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val completionId: Long,
-        @OneToOne
+        // Many completion rows can map to a single cub
+        @ManyToOne(optional = false)
         @JoinColumn(name = "cubId")
         val cub: Cub,
-        @OneToOne
+        // Many completion rows can map to a single achievement
+        @ManyToOne(optional = false)
         @JoinColumn(name = "achievementId")
         val achievement: Achievement,
         val completionDate: Date,
-        @ManyToOne
-        @JoinColumn(name = "userId")
-        val approvedBy: User
+        val approvedBy: String
 )
 
 /**
@@ -81,6 +69,7 @@ data class Completion(
  * @param [subachievements] Collection of subachivements that make up this achievement.
  * @param [requiredSubachievements] Collection of subachievments that must be required to complete this achievement.
  */
+@Table(name = "Achievement")
 @Entity
 data class Achievement (
         @Id
@@ -109,10 +98,11 @@ data class Achievement (
  * type of achievements. It also allows us to extend the available achievement types, hopefully without having
  * to change the code.
  *
- * @param [achievementTypeIdz] Unique ID used to reference an achievement type.
+ * @param [achievementTypeId] Unique ID used to reference an achievement type.
  * @param [name] Name of the achievement type.
  * @param [description] Description of the achievement type.
  */
+@Table(name = "AchievementType")
 @Entity
 data class AchievementType(
         @Id

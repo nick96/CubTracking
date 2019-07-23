@@ -24,9 +24,3 @@ interface CubRepository: JpaRepository<Cub, Long>
  */
 interface CompletionRepository: JpaRepository<Completion, Long>
 
-
-/**
- * Repository for interacting with the [User] entity.
- */
-interface UserRepository: JpaRepository<User, Long>
-

@@ -1,10 +1,9 @@
-package de.codecentric.hikaku.sample
+package me.nspain.cubtracking.badgework
 
 import de.codecentric.hikaku.Hikaku
 import de.codecentric.hikaku.HikakuConfig
 import de.codecentric.hikaku.converters.openapi.OpenApiConverter
 import de.codecentric.hikaku.converters.spring.SpringConverter
-import me.nspain.cubtracking.badgework.BadgeworkApplication
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
